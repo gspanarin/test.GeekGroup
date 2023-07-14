@@ -12,9 +12,11 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'language' => 'ua',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'baseUrl' => '/admin',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -37,14 +39,36 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',                                
+                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
         ],
-        */
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=test_geek_group',
+            'username' => 'geek_group',
+            'password' => 'geek_group',
+            'charset' => 'utf8',
+        ],
+
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class'          => 'yii\i18n\PhpMessageSource',
+                    'basePath'       => '@common/messages', // if advanced application, set @frontend/messages
+                    //'sourceLanguage' => 'ru',
+                    'fileMap'        => [
+                        'backend' => 'backend.php',
+                        //'main' => 'main.php',
+                        //require __DIR__ . '/i18n.php'
+                    ],
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];
