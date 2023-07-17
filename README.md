@@ -9,23 +9,23 @@ Examples of working with Yii2 framework
 	- beforeRequest
 	- work with files (upload, download)
 2. Controller:
-	- CRUD methods
+	- CRUD methods (+)
 	- behaviors
 	- access
 3. Model:
 	- behaviors and events
-	- relations
+	- relations (+)
 	- rules and custom rules
 4. View:
 	- assets and bundles
 	- layouts
 	- themes
 	- widgets
-		- GridView
-		- ListView
+		- GridView (+)
+		- ListView (+)
 		- Pjax
-		- filter
-		- sorting
+		- filter (+)
+		- sorting (+)
 		- load more (dynamic loading)
 		- custom widgets
 5. Behaviors:
@@ -33,7 +33,7 @@ Examples of working with Yii2 framework
 	- pre or post data processing
 6. Modules
 7. Will be a plus:
-	- example of multilingual implementation
+	- example of multilingual implementation (+)
 	- photo processing example
 	- API implementation example
 	- task queue implementation example

@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\models;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Project;
+use common\models\Project;
 
 /**
  * ProjectSearch represents the model behind the search form of `backend\models\Project`.

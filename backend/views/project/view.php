@@ -2,6 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\bootstrap4\Tabs;
+
+
+
+use common\models\User;
 
 /** @var yii\web\View $this */
 /** @var backend\models\Project $model */
@@ -26,20 +31,32 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'title',
-            'desciption:ntext',
-            'status',
-            'start_date',
-            'finish_date',
-            'creater_id',
-            'created_at',
-            'updated_at',
-            'version',
-        ],
-    ]) ?>
-
+    
+    
+    
+    <?= Tabs::widget([
+                        'encodeLabels' => false,
+                        'items' => [
+                            [
+                                'label' => Yii::t('backend', 'Картка проекту'),
+                                'content' => $this->render('card', compact('model')),
+                            ],
+                            [
+                                'label' => Yii::t('backend', 'Задачі проекту'),
+                                'content' => $this->render('task/_tab_tasks', compact('model', 'taskDataProvider', 'taskSearchModel')),
+                            ],
+                            [
+                                'label' => Yii::t('backend', 'Учасники проекту'),
+                                'content' => $this->render('_tab_users', compact('model', 'userDataProvider', 'userSearchModel')),
+                            ],
+                            [
+                                'label' => Yii::t('backend', 'Обговорення проекту'),
+                                'content' => $this->render('comment/_tab_comments', compact('model', 'commentDataProvider', 'commentSearchModel')),
+                            ],
+                        ],
+                    ]
+                ) ?>
+    
+    
+    
 </div>

@@ -18,11 +18,11 @@ class m230714_140508_add_table_project extends Migration{
 
         $this->createTable('{{%project}}', [
             'id' => $this->primaryKey(),
-            'title' => $this->string(255)->comment('Назва проекту'),
+            'title' => $this->string()->notNull()->comment('Назва проекту'),
             'desciption' => $this->text()->defaultValue('')->comment('Опис проекту'),
             'status' => $this->smallInteger()->notNull()->defaultValue(0)->comment('Статус проекту'),
-            'start_date' => $this->integer()->defaultValue(null)->comment('Дата початку роботи над проектом'),
-            'finish_date' => $this->integer()->defaultValue(null)->comment('Дата завершення роботи над проектом'),
+            'start_date' => $this->dateTime()->defaultValue(null)->comment('Дата початку роботи над проектом'),
+            'finish_date' => $this->dateTime()->defaultValue(null)->comment('Дата завершення роботи над проектом'),
             'creater_id' => $this->integer()->notNull()->comment('Ідентифікатор користувача, який створив проект'),
             'created_at' => $this->integer()->notNull()->comment('Дата створення проетку'),
             'updated_at' => $this->integer()->notNull()->comment('Дата оновлення проекту'),

@@ -1,25 +1,24 @@
 <?php
 
-
+use common\models\Task;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use common\models\Project;
 /** @var yii\web\View $this */
-/** @var backend\models\ProjectSearch $searchModel */
+/** @var common\models\TaskSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('backend', 'Projects');
+$this->title = Yii::t('backend', 'Tasks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="project-index">
+<div class="task-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('backend', 'Create Project'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('backend', 'Create Task'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -31,21 +30,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
+            'id',
+            'project_id',
+            'user_id',
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatusName(),
+            ],
             'title',
-            'desciption:html',
-            // TODO
-            // Треба зробити розкодування статусів
-            'status',
+            //'desciption:ntext',
             //'start_date',
-            'finish_date',
+            //'finish_date',
             //'creater_id',
             //'created_at',
             //'updated_at',
             //'version',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Project $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Task $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
