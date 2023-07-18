@@ -31,9 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    
-    
-    
     <?= Tabs::widget([
                         'encodeLabels' => false,
                         'items' => [

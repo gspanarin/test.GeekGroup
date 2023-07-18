@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')
         ->dropDownList(
             $model->getStatusList(),        
-        ); 
+        ); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

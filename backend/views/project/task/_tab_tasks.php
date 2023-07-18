@@ -15,10 +15,11 @@ use dosamigos\tinymce\TinyMce;
 /** @var common\models\Task $model */
 
 ?>
+<script src="/admin/assets/e322fbfc/tinymce.js"></script>
 <div class="task-view">
 
     <h2>Перелік задач проекту</h2>
-
+   
     <?php Pjax::begin([
         'id' => 'pjaxTaskList']); ?>
     <?php  echo $this->render('_search', ['model' => $taskSearchModel]); ?>

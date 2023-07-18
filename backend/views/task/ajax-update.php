@@ -76,6 +76,11 @@ use kartik\date\DatePicker;
 <?php
 $script = <<< JS
 
+    tinymce.remove();
+    tinymce.init({
+        selector: "textarea",
+    });
+        
     $(document).ready(function () { 
         $("#ajax-form").on('beforeSubmit', function (event) { 
             event.preventDefault();            

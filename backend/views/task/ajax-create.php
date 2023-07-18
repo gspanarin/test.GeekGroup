@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use dosamigos\tinymce\TinyMce;
 use kartik\date\DatePicker;
 
+
 ?>
 <div class="task-create">
 
@@ -19,19 +20,14 @@ use kartik\date\DatePicker;
     <?= $form->field($model, 'version')->hiddenInput() ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
+    
     <?= $form->field($model, 'desciption')->widget(TinyMce::className(), [
-    'options' => ['rows' => 6],
-    'language' => 'ru',
-    'clientOptions' => [
-        'plugins' => [
-            'advlist autolink lists link charmap  print hr preview pagebreak',
-            'searchreplace wordcount textcolor visualblocks visualchars code fullscreen nonbreaking',
-            'save insertdatetime media table contextmenu template paste image'
-        ],
-        'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-    ]
-]); ?>
+        'options' => ['rows' => 6],
+        'language' => 'ru',
+        'clientOptions' => [
+            'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+        ]
+    ]); ?>
 
     <?= $form->field($model, 'status')
         ->dropDownList(
@@ -76,33 +72,36 @@ use kartik\date\DatePicker;
 <?php
 $script = <<< JS
 
-    $(document).ready(function () { 
-        $("#ajax-form").on('beforeSubmit', function (event) { 
-            event.preventDefault();            
-            var form_data = new FormData($('#ajax-form')[0]);
-            $.ajax({
-                url: $("#ajax-form").attr('action'), 
-                dataType: 'JSON',  
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data, //$(this).serialize(),                      
-                type: 'post',                        
-                beforeSend: function() {},
-                success: function(response){                      
-                    //toastr.success("",response.message); 
-                    $.pjax.reload({container: '#pjaxTaskList', async: false});
-                    $('#modal').modal('hide');
-                },
-                complete: function() {
-                },
-                error: function (data) {
-                    //toastr.warning("","There may a error on uploading. Try again later");    
-                }
-            });                
-            return false;
-        });
-    });       
+    tinymce.remove();
+    tinymce.init({
+        selector: "textarea",
+    });
+        
+    $("#ajax-form").on('beforeSubmit', function (event) { 
+        event.preventDefault();            
+        var form_data = new FormData($('#ajax-form')[0]);
+        $.ajax({
+            url: $("#ajax-form").attr('action'), 
+            dataType: 'JSON',  
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data, //$(this).serialize(),                      
+            type: 'post',                        
+            beforeSend: function() {},
+            success: function(response){                      
+                //toastr.success("",response.message); 
+                $.pjax.reload({container: '#pjaxTaskList', async: false});
+                $('#modal').modal('hide');
+            },
+            complete: function() {
+            },
+            error: function (data) {
+                //toastr.warning("","There may a error on uploading. Try again later");    
+            }
+        });                
+        return false;
+    });
 
 JS;
 $this->registerJs($script);
