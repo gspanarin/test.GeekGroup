@@ -7,12 +7,10 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\Project;
-/** @var yii\web\View $this */
-/** @var backend\models\ProjectSearch $searchModel */
-/** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('backend', 'Projects');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="project-index">
 
@@ -23,20 +21,31 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => ['white-space' => 'wrap'], 
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            [
+                'attribute' => 'status',
+                'value' => function(Project $model){
+                    return $model->getStatusName();
+                },
+                'filter' => [
+                    0 => 'Новий',
+                    1 => 'Планування',
+                    2 => 'В роботі',
+                    3 => 'Закритий',
+                    4 => 'Завершений',
+                ],
+ 
+            ],
             //'id',
             'title',
             'desciption:html',
-            // TODO
-            // Треба зробити розкодування статусів
-            'status',
+            
             //'start_date',
             'finish_date',
             //'creater_id',

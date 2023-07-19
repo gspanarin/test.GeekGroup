@@ -9,16 +9,13 @@ use kartik\date\DatePicker;
 ?>
 <div class="task-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-
-    
     <?php $form = ActiveForm::begin([
         'id' => 'ajax-form',
-        'action' => '/admin/task/ajax-create?project_id=' . $model->project_id . '&creater_id=' . $model->creater_id,
+        'action' => '/admin/task/ajax-update?id=' . $model->id,
     ]); ?>
-    <?= $form->field($model, 'version')->hiddenInput() ?>
-
+    
+    <?= $form->field($model, 'version')->hiddenInput()->label(false); ?>
+    
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     
     <?= $form->field($model, 'desciption')->widget(TinyMce::className(), [
@@ -61,10 +58,6 @@ use kartik\date\DatePicker;
     
     <?php ActiveForm::end(); ?>
     
-    
-    
-    
-    
 </div>
 
 
@@ -72,13 +65,11 @@ use kartik\date\DatePicker;
 <?php
 $script = <<< JS
 
-    try {
-        tinymce.remove();
-    } catch (e) {}
+    tinymce.remove();
     tinymce.init({
         selector: "textarea",
     });
-       
+        
     $("#ajax-form").on('beforeSubmit', function (event) { 
         event.preventDefault();            
         var form_data = new FormData($('#ajax-form')[0]);

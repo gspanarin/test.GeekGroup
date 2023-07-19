@@ -140,6 +140,7 @@ class CommentController extends Controller{
     public function actionAjaxCreate($user_id, $project_id = null, $task_id = null){
         $model = new Comment();
         $model->project_id = $project_id;
+        $model->task_id = $task_id;
         $model->user_id = $user_id;
         $model->version = 0;
         
@@ -182,5 +183,24 @@ class CommentController extends Controller{
         $this->findModel($id)->delete();
 
         return Json::encode(array('status' => 'success', 'type' => 'success', 'message' => 'Task was deleted'));
+    }
+    
+    
+    
+    public function actionIndexTaskComment($user_id, $project_id = null, $task_id = null){
+        $taskCommentSearchModel = new CommentSearch();
+        $taskCommentDataProvider = $taskCommentSearchModel->search([
+            'user_id' => $user_id,
+            'project_id' => $project_id,
+            'task_id' => $task_id,
+        ]);
+
+        return $this->render('index-task-comment', [
+            'taskCommentSearchModel' => $taskCommentSearchModel,
+            'taskCommentDataProvider' => $taskCommentDataProvider,
+            'user_id' => $user_id,
+            'project_id' => $project_id,
+            'task_id' => $task_id,
+        ]);
     }
 }

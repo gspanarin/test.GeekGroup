@@ -41,8 +41,7 @@ class ProjectController extends Controller{
      *
      * @return string
      */
-    public function actionIndex()
-    {
+    public function actionIndex(){
         $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
         
@@ -87,26 +86,15 @@ class ProjectController extends Controller{
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
-    {
+    public function actionCreate(){
         $model = new Project();
-
+        $model->creater_id = Yii::$app->user->id;
+        
         if ($this->request->isPost) {
-            /*if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }*/
             if ($model->load($this->request->post())) {
-                
-                $model->creater_id = Yii::$app->user->id;
-                //$this->$creater_id = Yii::$app->user->id;
-                
                 if ($model->save()){
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
-                
-                print '<pre>';
-                var_dump($model);
-                die();
             }
         } else {
             $model->loadDefaultValues();

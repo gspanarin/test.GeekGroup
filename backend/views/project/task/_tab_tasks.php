@@ -27,6 +27,8 @@ use dosamigos\tinymce\TinyMce;
     <?= GridView::widget([
         'dataProvider' => $taskDataProvider,
         'filterModel' => $taskSearchModel,
+        //'contentOptions' => ['style'=>'white-space: wrap;'],
+        'options' => ['white-space' => 'wrap'], 
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
@@ -37,10 +39,38 @@ use dosamigos\tinymce\TinyMce;
                 'value' => function($model){
                     return $model->getStatusName();
                 },
+                'filter'=>$model->getStatusList(),
+                //TODO
+                //Підібрати кольори для виділення статусів задач
+                //Можливо має сенс виділяти не текст, а фон комірки
+                /*'contentOptions' => function($model){
+                    switch ($model->status) {
+                        case 1:
+                            $style = ['style' => 'width: 65px; color:yellow;' ];
+                            break;
+                        case 2:
+                            $style = ['style' => 'width: 65px; color:green;' ];
+                            break;
+                        case 3:
+                            $style = ['style' => 'width: 65px; color:blue;' ];
+                            break;
+                        case 4:
+                            $style = ['style' => 'width: 65px; color:black;' ];
+                            break;
+                        default:
+                            $style = [];
+                            break;
+                    }; 
+                    return $style;
+                },*/
             ],
             'title',
             'desciption:html',
-            'start_date',
+            [
+                'attribute' => 'start_date',
+                //'options' => ['style' => 'width: 65px; color:red; '],
+                'contentOptions' => ['style' => 'width: 65px; color:red;' ],     
+            ],
             'finish_date',
             //'creater_id',
             //'created_at',
@@ -68,7 +98,7 @@ use dosamigos\tinymce\TinyMce;
     echo Html::button('Створити нову задачу', ['value' => Url::to(['task/ajax-create', 'project_id' => $model->id, 'creater_id' => Yii::$app->user->id]), 'class' => 'btn btn-success', 'id' => 'modalButton',],);
     
     Modal::begin([
-        'title' => '<h2>modal window</h2>',
+        'title' => '<h2>Задача поточного проекту</h2>',
         'id' => 'modal',
         'size' => 'modal-lg',
     ]);

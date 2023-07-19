@@ -17,7 +17,7 @@ class CommentSearch extends Comment
     public function rules()
     {
         return [
-            [['id', 'user_id', 'project_id', 'task_id', 'created_at', 'updated_at', 'version'], 'integer'],
+            [['id', 'user_id', 'project_id', 'created_at', 'updated_at', 'version'], 'integer'],
             [['text'], 'safe'],
         ];
     }
@@ -48,8 +48,16 @@ class CommentSearch extends Comment
             'query' => $query,
         ]);
 
+        /*$this->user_id = 1;
+        $this->project_id = 7;
+        $this->task_id = 26;*/
+        
         $this->load($params);
 
+        /*print '<pre>';
+        print_r($this);
+        die();*/
+        
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -69,6 +77,8 @@ class CommentSearch extends Comment
 
         $query->andFilterWhere(['like', 'text', $this->text]);
 
+        
+        
         return $dataProvider;
     }
 }

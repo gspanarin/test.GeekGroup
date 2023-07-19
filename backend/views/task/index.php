@@ -35,7 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'user_id',
             [
                 'attribute' => 'status',
-                'value' => $model->getStatusName(),
+                'value' => function($data){
+                    return $data->getStatusName();
+                },
             ],
             'title',
             //'desciption:ntext',
